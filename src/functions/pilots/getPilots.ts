@@ -1,19 +1,10 @@
 import { APIGatewayProxyHandler } from 'aws-lambda';
 import 'source-map-support/register';
+import { Pilots } from '../../services/pilots/Pilots.service';
 import { ResponseBuilder } from '../../services/responseBuilder/ResponseBuilder.service';
 
 export const handler: APIGatewayProxyHandler = async () => {
-  //mocking DB pilots get
-  const allPilots = [
-    {
-      name: 'Mark Zuckerberg',
-      age: 36,
-    },
-    {
-      name: 'Bill Gates',
-      age: 65,
-    }
-  ]
+  const pilots = new Pilots;
 
-  return new ResponseBuilder(allPilots).ok().build();
+  return new ResponseBuilder(await pilots.getPilots()).ok().build();
 }

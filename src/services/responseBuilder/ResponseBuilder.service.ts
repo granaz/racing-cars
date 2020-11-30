@@ -17,6 +17,15 @@ export class ResponseBuilder {
   }
 
   /**
+   * badRequest
+   */
+  public badRequest() {
+    this.statusCode = 400;
+
+    return this;
+  }
+
+  /**
    * build
    */
   public build() {
