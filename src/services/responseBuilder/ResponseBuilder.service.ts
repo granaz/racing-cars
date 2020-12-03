@@ -1,9 +1,13 @@
+import { RcErrors, ResponseError } from "./ResponseError.service";
+
 export class ResponseBuilder {
   public statusCode: number;
 
-  public body: string;
+  public body;
 
-  constructor(body: any) {
+  public Error: RcErrors;
+
+  constructor(body?: any) {
     this.body = body;
   }
 
@@ -29,9 +33,34 @@ export class ResponseBuilder {
    * build
    */
   public build() {
+    if (this.Error) {
+      this.statusCode = this.Error.statusCode;
+      this.body = {
+        errors: [
+          {
+            code: this.Error.code,
+            message: this.Error.message,
+          }
+        ]
+      }
+    }
+
     return {
       statusCode: this.statusCode,
       body: JSON.stringify(this.body),
     }
+  }
+
+  /**
+   * addError
+   */
+  public addError(err: RcErrors) {
+    if (err.code && err.message && err.statusCode) {      
+      this.Error = err;
+    } else {
+      this.Error = new RcErrors(ResponseError.INTERNAL_SERVER_ERROR);
+    }
+
+    return this;
   }
 }

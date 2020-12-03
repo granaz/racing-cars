@@ -12,6 +12,6 @@ export const handler: APIGatewayProxyHandler = async (event: APIGatewayEvent) =>
 
     return new ResponseBuilder(await pilot.getPilotById(pilotId)).ok().build();
   } catch (error) {
-    return new ResponseBuilder(error).badRequest().build();
+    return new ResponseBuilder().addError(error).build();
   }
 }

@@ -9,7 +9,7 @@ export class EventParser {
 
   public pathParameters: { [name: string]: string; };
 
-  constructor(event) {
+  constructor(event: APIGatewayEvent) {
     this.rawEvent = event;
     this.checkPathParameters();
   }

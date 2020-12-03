@@ -21,14 +21,14 @@ functions:
     handler: src/functions/pilots/getPilots.handler
     events:
       - http:
-          method: get
           path: pilots/
+          method: get
   pilotGet:
     handler: src/functions/pilots/getPilot.handler
     events:
       - http:
+          path: pilots/{pilotId}
           method: get
-          path: 'pilots/{pilotId}'
           request: 
             parameters: 
               paths: 
