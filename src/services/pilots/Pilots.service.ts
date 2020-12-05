@@ -1,17 +1,18 @@
-import { getAllPilots, getPilotById } from "../../db/pilots/pilots";
+import { getAllPilots, getPilotById } from '../../db/pilots'
+import { IPilots } from '../../models/interfaces/entities/ipilots'
 
 export class Pilots {
   /**
    * getPilots
    */
-  public async getPilots() {
-    return await getAllPilots();
+  public async getPilots (): Promise<IPilots[]> {
+    return await getAllPilots()
   }
 
   /**
    * getPilotById
    */
-  public async getPilotById(pilotId: string) {
-    return await getPilotById(pilotId);
+  public async getPilotById (pilotId: string): Promise<IPilots> {
+    return await getPilotById(pilotId)
   }
 }

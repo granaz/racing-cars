@@ -3,5 +3,5 @@ export const dbConfig = {
   password: '1',
   host: 'localhost',
   database: 'postgres',
-  port: 5432,
-};
+  port: 5432
+}

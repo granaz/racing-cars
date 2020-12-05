@@ -1,4 +1,4 @@
-import { RcErrors, ResponseError } from "./ResponseError.service";
+import { RcErrors, ResponseError } from './ResponseError.service'
 
 export class ResponseBuilder {
   public statusCode: number;
@@ -7,39 +7,48 @@ export class ResponseBuilder {
 
   public Error: RcErrors;
 
-  constructor(body?: any) {
-    this.body = body;
+  constructor (body?: any) {
+    this.body = body
   }
 
   /**
    * ok
    */
-  public ok() {
-    this.statusCode = 200;
+  public ok () {
+    this.statusCode = 200
 
-    return this;
+    return this
+  }
+
+  /**
+   * created
+   */
+  public created () {
+    this.statusCode = 201
+
+    return this
   }
 
   /**
    * badRequest
    */
-  public badRequest() {
-    this.statusCode = 400;
+  public badRequest () {
+    this.statusCode = 400
 
-    return this;
+    return this
   }
 
   /**
    * build
    */
-  public build() {
+  public build () {
     if (this.Error) {
-      this.statusCode = this.Error.statusCode;
+      this.statusCode = this.Error.statusCode
       this.body = {
         errors: [
           {
             code: this.Error.code,
-            message: this.Error.message,
+            message: this.Error.message
           }
         ]
       }
@@ -47,20 +56,20 @@ export class ResponseBuilder {
 
     return {
       statusCode: this.statusCode,
-      body: JSON.stringify(this.body),
+      body: JSON.stringify(this.body)
     }
   }
 
   /**
    * addError
    */
-  public addError(err: RcErrors) {
-    if (err.code && err.message && err.statusCode) {      
-      this.Error = err;
+  public addError (err: RcErrors) {
+    if (err.code && err.message && err.statusCode) {
+      this.Error = err
     } else {
-      this.Error = new RcErrors(ResponseError.INTERNAL_SERVER_ERROR);
+      this.Error = new RcErrors(ResponseError.INTERNAL_SERVER_ERROR)
     }
 
-    return this;
+    return this
   }
 }

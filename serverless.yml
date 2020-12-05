@@ -17,13 +17,13 @@ provider:
   environment:
     AWS_NODEJS_CONNECTION_REUSE_ENABLED: '1'
 functions:
-  pilotsGet:
+  pilots-get:
     handler: src/functions/pilots/getPilots.handler
     events:
       - http:
           path: pilots/
           method: get
-  pilotGet:
+  pilot-get:
     handler: src/functions/pilots/getPilot.handler
     events:
       - http:
@@ -33,3 +33,19 @@ functions:
             parameters: 
               paths: 
                 pilotId: true
+  race-post:
+    handler: src/functions/races/createRace.handler
+    events:
+      - http:
+          path: races/
+          method: post
+  race-get:
+    handler: src/functions/races/getRace.handler
+    events:
+      - http:
+          path: races/{raceId}
+          method: get
+          request: 
+            parameters: 
+              paths: 
+                pilotId: true          
