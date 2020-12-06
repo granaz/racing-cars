@@ -11,10 +11,10 @@ export const getAllPilots = async (): Promise<IPilots[]> => {
 }
 
 export const getPilotById = async (pilotId: string): Promise<IPilots> => {
-  const db = await new DataBaseConnection().connect()
+  const db = await new DataBaseConnection().connect();
 
   const result = await db.query({
-    text: 'select * from rc_pilots where id = xasd$1',
+    text: 'select * from rc_pilots where id = $1',
     values: [pilotId]
   })
 

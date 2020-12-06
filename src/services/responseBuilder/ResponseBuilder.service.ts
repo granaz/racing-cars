@@ -64,6 +64,8 @@ export class ResponseBuilder {
    * addError
    */
   public addError (err: RcErrors) {
+    console.log(err);
+
     if (err.code && err.message && err.statusCode) {
       this.Error = err
     } else {

@@ -3,7 +3,7 @@ import * as pg from 'pg'
 
 export class DataBaseConnection {
   static client: pg.Client;
-  private isConnected = false;
+  static isConnected = false;
 
   constructor () {
     if (!DataBaseConnection.client) {
@@ -15,9 +15,9 @@ export class DataBaseConnection {
    * connect
    */
   public async connect (): pg.Client {
-    if (!this.isConnected) {
+    if (!DataBaseConnection.isConnected) {
       await DataBaseConnection.client.connect()
-      this.isConnected = true
+      DataBaseConnection.isConnected = true
     }
 
     return DataBaseConnection.client

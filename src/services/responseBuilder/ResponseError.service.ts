@@ -11,6 +11,10 @@ export class ResponseError {
 
   public static JSON_SYNTAX_ERROR = new ResponseError('JsonSyntaxError', 'JSON Syntax Error.', StatusCode.BAD_REQUEST);
 
+  public static TEAM_NOT_FOUND = new ResponseError('TeamNotFound', 'Team not found.', StatusCode.NOT_FOUND);
+
+  public static PILOT_NOT_FOUND = new ResponseError('PilotNotFound', 'Pilot not found.', StatusCode.NOT_FOUND);
+
   public code: string;
   public message: string;
   public statusCode: number;

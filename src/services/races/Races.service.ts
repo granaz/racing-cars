@@ -1,7 +1,9 @@
 import { createRace, getRaceById } from '../../db/cars'
 import { IRaces } from '../../models/interfaces/entities/iraces'
 import { EventParser } from '../../services/eventParser/EventParser.service'
+import { Pilots } from '../pilots/Pilots.service'
 import { RcErrors, ResponseError } from '../responseBuilder/ResponseError.service'
+import { Teams } from '../teams/Teams.service'
 import { checkUuid } from '../utils'
 
 export class Races {
@@ -9,7 +11,14 @@ export class Races {
    * createRace
    */
   public async createRace (teamId: string, pilotId: string): Promise<IRaces> {
-    return await createRace(teamId, pilotId)
+    const team = new Teams();
+    const pilot = new Pilots();
+
+    if (!await team.getTeamById(teamId)) throw new RcErrors(ResponseError.TEAM_NOT_FOUND);
+
+    if (!await pilot.getPilotById(pilotId)) throw new RcErrors(ResponseError.PILOT_NOT_FOUND);
+
+    return await createRace(teamId, pilotId);
   }
 
   /**
