@@ -15,6 +15,8 @@ export class ResponseError {
 
   public static PILOT_NOT_FOUND = new ResponseError('PilotNotFound', 'Pilot not found.', StatusCode.NOT_FOUND);
 
+  public static RACE_NOT_FOUND = new ResponseError('RaceNotFound', 'Race Not Found.', StatusCode.NOT_FOUND);
+
   public code: string;
   public message: string;
   public statusCode: number;

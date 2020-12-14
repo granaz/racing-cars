@@ -51,3 +51,30 @@ export const getRaceById = async (raceId: string) => {
 
   return keysToCamelCase(result.rows[0]) as IRaces
 }
+
+export const updateRace = async (raceParams: IRaces) => {
+  const db = await new DataBaseConnection().connect()
+
+  const result = await db.query({
+    text: `UPDATE rc_races SET
+          date = $2,
+          winner = $3,
+          status = $4,
+          team_id = $5,
+          pilot_id = $6,
+          car_id = $7
+        WHERE id = $1
+        RETURNING *;`,
+    values: [
+      raceParams.id,
+      raceParams.date,
+      raceParams.winner,
+      raceParams.status,
+      raceParams.teamId,
+      raceParams.pilotId,
+      raceParams.carId
+    ]
+  });
+
+  return keysToCamelCase(result.rows[0]) as IRaces;
+}

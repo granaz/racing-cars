@@ -48,4 +48,14 @@ functions:
           request: 
             parameters: 
               paths: 
-                pilotId: true          
+                raceId: true
+  race-put:
+    handler: src/functions/races/updateRace.handler
+    events:
+      - http:
+          path: races/{raceId}
+          method: put
+          request: 
+            parameters: 
+              paths: 
+                raceId: true

@@ -1,12 +1,11 @@
-import { createRace, getRaceById } from '../../db/cars'
+import { createRace, getRaceById, updateRace } from '../../db/cars'
 import { IRaces } from '../../models/interfaces/entities/iraces'
-import { EventParser } from '../../services/eventParser/EventParser.service'
 import { Pilots } from '../pilots/Pilots.service'
 import { RcErrors, ResponseError } from '../responseBuilder/ResponseError.service'
 import { Teams } from '../teams/Teams.service'
-import { checkUuid } from '../utils'
+import { RaceInput } from './RacesInput.service'
 
-export class Races {
+export class Races extends RaceInput {
   /**
    * createRace
    */
@@ -29,33 +28,19 @@ export class Races {
   }
 
   /**
-   * validateInput for Races Service
-   * @param event
+   * updateRace
    */
-  public validateCreateRaceInput (event: EventParser) {
-    let result = true
-    const body = event.parsedBody as {
-      teamId: string,
-      pilotId: string,
+  public async updateRace (raceId: string, raceParams: IRaces) {
+    const race = await getRaceById(raceId);
+
+    if (!race) throw new RcErrors(ResponseError.RACE_NOT_FOUND);
+
+    for (const item in race) {
+      if (raceParams.hasOwnProperty(item)) {
+        race[item] = raceParams[item];
+      }
     }
 
-    result = result && body.hasOwnProperty('teamId')
-    result = result && body.hasOwnProperty('pilotId')
-
-    if (!result) {
-      throw new RcErrors(ResponseError.MISSING_BODY_INFORMATON)
-    }
-
-    result = result && (typeof body.teamId === 'string')
-    result = result && (typeof body.pilotId === 'string')
-
-    if (!result) {
-      throw new RcErrors(ResponseError.INVALID_PARAMETERS)
-    }
-
-    result = result && (checkUuid(body.teamId))
-    result = result && (checkUuid(body.pilotId))
-
-    return body
+    return await updateRace(race);
   }
 }

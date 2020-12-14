@@ -5,7 +5,7 @@ import { checkUuid } from '../utils'
 export class EventParser {
   private rawEvent: APIGatewayEvent;
 
-  public parsedBody: { [name: string]: unknown };
+  public parsedBody;
 
   public pathParameters: { [name: string]: string; };
 
