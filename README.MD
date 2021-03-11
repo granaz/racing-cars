@@ -1,6 +1,6 @@
 # Racing Cars
 
-Racing Cars is a rampup project made for new people.
+Racing Cars is a ramp up project made for beginners.
 
   - serverless
   - typescript
